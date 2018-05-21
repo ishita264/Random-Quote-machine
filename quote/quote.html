@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></script>
+  <link href="https://fonts.googleapis.com/css?family=Crete+Round" rel="stylesheet">
+ <script src="https://use.fontawesome.com/6bb989a5d9.js"></script>
+ <link href="style.css" rel="stylesheet" type="text/css" />
+
+
+<script>
+$(document).ready(function(){
+
+	var url="http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?";
+	console.log("hi");
+  $.getJSON(url, function(data){
+	console.log(data);
+$("#text").text(data.quoteText);
+$(".quote-author").html("-"+data.quoteAuthor);
+ });
+
+   //this function will be called when you will click on get new quote
+  $("#new-quote").on('click',getQuote)
+
+
+  //functiion to get new quote
+function getQuote(){
+var url="http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?";
+var colors = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', "#472E32", "#BDBB99", "#77B1A9", "#73A857"];
+
+ var color = Math.floor(Math.random() * colors.length);
+  $("html body").animate(
+    {
+      backgroundColor: colors[color],
+      color: colors[color]
+    },
+    1000
+  );
+  $(".button").animate(
+    {
+      backgroundColor: colors[color]
+    },
+    1000
+  );
+
+
+$.getJSON(url, function(data){
+$("#text").html(data.quoteText);
+$(".quote-author").html("-"+data.quoteAuthor);
+ });
+
+}
+
+
+});
+$("#tweet-quote").on("click", function(){
+       window.open("https://twitter.com/intent/tweet?text=" + data.quoteText + " - " + data.quoteAuthor);
+     });﻿
+</script>
+
+</head>
+
+<body>
+<div class="quote-box">
+<div class="quote-text">
+<i class="fa fa-quote-left"> </i><span id="text"></span>
+<i class="fa fa-quote-right"> </i><span id="text"></span>
+  </div>
+<div class="quote-author">
+    - <span id="author"></span>
+  </div>
+<div class="buttons">
+<a class="button" id="tweet-quote" title="Tweet this quote!">
+<i class="fa fa-twitter"></i>
+</a>
+<a class="button" id="tumblr-quote" title="Post this quote on tumblr!">
+<i class="fa fa-tumblr"></i>
+    </a>
+    <button class="button" id="new-quote" >New quote</button>
+  </div>
+
+
+</body>
+</html>
